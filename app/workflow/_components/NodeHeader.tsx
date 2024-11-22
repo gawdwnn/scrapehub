@@ -24,7 +24,7 @@ function NodeHeader({ taskType, nodeId }: { taskType: TaskType, nodeId: string }
           {task.isEntryPoint && <Badge>Entry point</Badge>}
           <Badge className="flex items-center gap-2 text-xs">
             <CoinsIcon size={16} />
-            TODO
+            {task.credits}
           </Badge>
           {!task.isEntryPoint && (
             <>
