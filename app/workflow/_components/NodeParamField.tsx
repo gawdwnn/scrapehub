@@ -7,19 +7,30 @@ import { AppNode } from "@/types/appNode";
 import { useCallback } from "react";
 import BrowserInstanceParamField from "./BrowserInstanceParamField";
 
-export function NodeParamField({ param, nodeId, disabled }: { param: TaskParam, nodeId: string, disabled: boolean }) {
+export function NodeParamField({
+  param,
+  nodeId,
+  disabled,
+}: {
+  param: TaskParam;
+  nodeId: string;
+  disabled: boolean;
+}) {
   const { updateNodeData, getNode } = useReactFlow();
   const node = getNode(nodeId) as AppNode;
   const value = node?.data.inputs?.[param.name];
 
-  const updateNodeParamValue = useCallback((newValue: string) => {
-    updateNodeData(nodeId, {
-      inputs: {
-        ...node?.data.inputs,
-        [param.name]: newValue,
-      },
-    });
-  }, [nodeId, updateNodeData, param.name, node?.data.inputs]);
+  const updateNodeParamValue = useCallback(
+    (newValue: string) => {
+      updateNodeData(nodeId, {
+        inputs: {
+          ...node?.data.inputs,
+          [param.name]: newValue,
+        },
+      });
+    },
+    [nodeId, updateNodeData, param.name, node?.data.inputs],
+  );
 
   switch (param.type) {
     case TaskParamType.STRING:
@@ -35,7 +46,7 @@ export function NodeParamField({ param, nodeId, disabled }: { param: TaskParam, 
       return (
         <BrowserInstanceParamField
           param={param}
-          value={''}
+          value={""}
           updateNodeParamValue={updateNodeParamValue}
         />
       );
@@ -44,6 +55,6 @@ export function NodeParamField({ param, nodeId, disabled }: { param: TaskParam, 
         <div className="w-full">
           <p className="text-xs text-muted-foreground">Not implemented</p>
         </div>
-      )
+      );
   }
 }
